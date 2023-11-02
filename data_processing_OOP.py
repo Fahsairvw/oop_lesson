@@ -102,9 +102,12 @@ my_table3_filtered = my_table3.filter(lambda x: x['EU'] == 'no').filter(lambda x
 # print(my_table3_filtered.table)
 
 my_table3_filtered = my_table3.filter(lambda x: x['EU'] == 'yes').filter(lambda x: x['coastline'] == 'no')
-print(my_table3_filtered.aggregate(lambda x: min(x), 'temperature'), my_table3_filtered.aggregate(lambda x: max(x), 'temperature'))
-# print(my_table3_filtered)
+print('Min', my_table3_filtered.aggregate(lambda x: min(x), 'temperature'))
+print('Max', my_table3_filtered.aggregate(lambda x: max(x), 'temperature'))
 
 
 print(my_table3.aggregate(lambda x: min(x), 'latitude'),  my_table3.aggregate(lambda x: max(x), 'latitude'))
-# print(my_table3)
+for country in my_table2.table:
+    new = my_table3.filter(lambda x: x['country'] == country['country'])
+    if new.table:
+        print(country['country'], new.aggregate(lambda x: min(x), 'latitude'), new.aggregate(lambda x: max(x), 'latitude'))
